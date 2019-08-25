@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DataServiceTest {
 
-    private DataServiceImpl dataService;
+    private DataServiceInterface dataService;
 
     @Before
     public void initTest() {

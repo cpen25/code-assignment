@@ -1,6 +1,7 @@
 package com.securepay.assignment;
 
 import com.securepay.assignment.service.DataServiceImpl;
+import com.securepay.assignment.service.DataServiceInterface;
 import com.securepay.assignment.util.Constant;
 
 public class Application {
@@ -9,7 +10,7 @@ public class Application {
 
         System.out.println("Securepay Code challenge - Basket algorithm");
 
-        DataServiceImpl dataGenService = new DataServiceImpl();
+        DataServiceInterface dataGenService = new DataServiceImpl();
 
         //generate given number of categories
         dataGenService.generateCategories(Constant.COUNT_OF_CATEGORY);

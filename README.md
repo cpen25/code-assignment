@@ -26,5 +26,14 @@ in a more decoupling way.
 1. You can run it to print results by "gradle run" to check the initial data generation and expected output
 2. You can run testing by "gradle test" to check the coverage of unit testing.
 
+## To be improved
+1. Currently it does not satisfy single responsibility principle well, should extract number generation func separately
+and also might be better to separate data initialization and sorting main logic in two different service.
+
+2. Should move all random range limit value as params of method instead of leaving fixed value
+inside method to make method more flexible
+
+3. Should add more test cases to do more coverage and probably exceptions as well
+
 ## Author
 Jeremy Peng
