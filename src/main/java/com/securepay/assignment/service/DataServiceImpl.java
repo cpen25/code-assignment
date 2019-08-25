@@ -30,9 +30,9 @@ public class DataServiceImpl implements DataServiceInterface {
             for (int i = 1; i <= itemCountInEachCategory; i++) {
                 Item item = new Item();
                 item.setItemName("Item" + i);
-                item.setPrice(generateIntRandom(1, 20));
-                item.setShippingCost(generateIntRandom(2, 5));
-                item.setRating(generateIntRandom(1, 5));
+                item.setPrice(generateIntRandom(Constant.MIN_ITEM_PRICE, Constant.MAX_ITEM_PRICE));
+                item.setShippingCost(generateIntRandom(Constant.MIN_ITEM_SHIPPING_COST, Constant.MAX_ITEM_SHIPPING_COST));
+                item.setRating(generateIntRandom(Constant.MIN_ITEM_RATING, Constant.MAX_ITEM_RATING));
                 items.add(item);
             }
 
@@ -54,10 +54,10 @@ public class DataServiceImpl implements DataServiceInterface {
     @Override
     public void printAllCategories() {
         categories.forEach(it -> {
-            System.out.println(it.getCategoryName());
+            System.out.println("\n" + it.getCategoryName());
 
             it.getItemList().forEach(item ->
-                    System.out.println("Item" + (it.getItemList().indexOf(item)+1) + ": " + "Price " + item.getPrice() + ", "
+                    System.out.println("Item" + (it.getItemList().indexOf(item) + 1) + ": " + "Price " + item.getPrice() + ", "
                             + "Shipping Cost " + item.getShippingCost() + ", "
                             + "Rating " + item.getRating() + "; "));
         });
@@ -66,7 +66,7 @@ public class DataServiceImpl implements DataServiceInterface {
     @Override
     public void printFinalResultCategories() {
 
-        System.out.println("\n" + "Basket should be like: ");
+        System.out.println("\n" + "Basket should be as below: ");
 
         finalResults.forEach(it -> {
             System.out.println(it.getCategoryName() + " - "
@@ -76,14 +76,20 @@ public class DataServiceImpl implements DataServiceInterface {
                     + "Rating " + it.getItemList().get(0).getRating() + "; ");
         });
 
-        int a = finalResults.stream().mapToInt(it -> it.getItemList().get(0).getRating()).sum();
+        int totalCost = finalResults.stream().mapToInt(it ->
+                (it.getItemList().get(0).getPrice() + it.getItemList().get(0).getShippingCost())).sum();
 
-        System.out.println("\n" + "Total item quantity: " + finalResults.size());
-        System.out.println("Total rating is: " + a);
+        int totalRating = finalResults.stream().mapToInt(it ->
+                it.getItemList().get(0).getRating()).sum();
+
+        System.out.println("\n" + "Total picked item quantity: " + finalResults.size());
+        System.out.println("Total cost: " + totalCost);
+        System.out.println("Total rating: " + totalRating);
     }
 
     /**
-     * sort items by total cost and rating in each category
+     * sort items in each category by cost of (price + shipping cost) from low to high
+     * and by rating from high to low as second sorting criteria
      */
     @Override
     public void sortEachCategory() {
@@ -103,7 +109,8 @@ public class DataServiceImpl implements DataServiceInterface {
     }
 
     /**
-     * Sort between categories by its best item
+     * sort categories by its first optimized item by cost of (price + shipping cost) from low to high
+     * and by rating from high to low as second sorting criteria
      */
     @Override
     public void sortCategoriesByBestItems() {
