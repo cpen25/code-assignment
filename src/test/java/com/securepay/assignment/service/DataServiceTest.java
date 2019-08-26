@@ -1,6 +1,7 @@
 package com.securepay.assignment.service;
 
 import com.securepay.assignment.model.Category;
+import com.securepay.assignment.util.MathUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -18,10 +19,10 @@ public class DataServiceTest {
 
     @Test
     public void shouldCreateRandomIntCorrectly() {
-        int test = dataService.generateIntRandom(1, 100);
+        int test = MathUtil.generateIntRandom(1, 100);
         Assertions.assertTrue(1 <= test && test <= 100);
 
-        int test1 = dataService.generateIntRandom(1, 1);
+        int test1 = MathUtil.generateIntRandom(1, 1);
         Assertions.assertEquals(1, test1);
     }
 

@@ -1,12 +1,12 @@
 package com.securepay.assignment.service;
 
-import com.securepay.assignment.util.Constant;
 import com.securepay.assignment.model.Category;
 import com.securepay.assignment.model.Item;
+import com.securepay.assignment.util.Constant;
+import com.securepay.assignment.util.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class DataServiceImpl implements DataServiceInterface {
 
@@ -30,9 +30,9 @@ public class DataServiceImpl implements DataServiceInterface {
             for (int i = 1; i <= itemCountInEachCategory; i++) {
                 Item item = new Item();
                 item.setItemName("Item" + i);
-                item.setPrice(generateIntRandom(Constant.MIN_ITEM_PRICE, Constant.MAX_ITEM_PRICE));
-                item.setShippingCost(generateIntRandom(Constant.MIN_ITEM_SHIPPING_COST, Constant.MAX_ITEM_SHIPPING_COST));
-                item.setRating(generateIntRandom(Constant.MIN_ITEM_RATING, Constant.MAX_ITEM_RATING));
+                item.setPrice(MathUtil.generateIntRandom(Constant.MIN_ITEM_PRICE, Constant.MAX_ITEM_PRICE));
+                item.setShippingCost(MathUtil.generateIntRandom(Constant.MIN_ITEM_SHIPPING_COST, Constant.MAX_ITEM_SHIPPING_COST));
+                item.setRating(MathUtil.generateIntRandom(Constant.MIN_ITEM_RATING, Constant.MAX_ITEM_RATING));
                 items.add(item);
             }
 
@@ -44,11 +44,6 @@ public class DataServiceImpl implements DataServiceInterface {
     @Override
     public List<Category> getAllCategories() {
         return categories;
-    }
-
-    @Override
-    public int generateIntRandom(int a, int b) {
-        return a + (int) (new Random().nextFloat() * (b - a));
     }
 
     @Override
@@ -130,12 +125,12 @@ public class DataServiceImpl implements DataServiceInterface {
     }
 
     @Override
-    public void findTopXResults() {
+    public void findTopXResults(int sumLimit) {
         int calculation = 0;
 
         for (Category category : categories) {
             if ((category.getItemList().get(0).getPrice() + category.getItemList().get(0).getShippingCost() + calculation)
-                    <= Constant.PRICE_SUM_LIMITATION) {
+                    <= sumLimit) {
                 calculation = calculation + category.getItemList().get(0).getPrice() + category.getItemList().get(0).getShippingCost();
                 finalResults.add(category);
             } else break;

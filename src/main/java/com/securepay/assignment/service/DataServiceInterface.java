@@ -25,14 +25,6 @@ public interface DataServiceInterface {
     List<Category> getAllCategories();
 
     /**
-     * method to generate random int data between a and b
-     * @param a
-     * @param b
-     * @return
-     */
-    int generateIntRandom(int a, int b);
-
-    /**
      * print all initial created categories with all items in each
      */
     void printAllCategories();
@@ -57,6 +49,6 @@ public interface DataServiceInterface {
     /**
      * find out top number of categories with its most optimized item by total cost less than specific total cost
      */
-    void findTopXResults();
+    void findTopXResults(int sumLimit);
 
 }

@@ -31,7 +31,7 @@ public class Application {
         dataGenService.sortCategoriesByBestItems();
 
         //find TOP X as combination in which cost is less than 50
-        dataGenService.findTopXResults();
+        dataGenService.findTopXResults(Constant.PRICE_SUM_LIMITATION);
 
         //print out final results
         //1. selected category and corresponding selected item from it
